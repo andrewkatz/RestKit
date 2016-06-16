@@ -7,7 +7,6 @@
 //
 
 #import "RKTestEnvironment.h"
-#import "RKHTTPUtilities.h"
 #import "RKObjectUtilities.h"
 #import "RKMIMETypes.h"
 #import "RKPathUtilities.h"
@@ -22,11 +21,6 @@
 - (void)testCompiles
 {
     // Nothing to do.
-}
-
-- (void)testCompilesWithHTTPUtilities {
-    NSIndexSet *codes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-    expect(codes).notTo.beNil();
 }
 
 - (void)testCompilesWithObjectUtilities {

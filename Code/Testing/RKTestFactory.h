@@ -32,8 +32,8 @@ extern NSString * const RKTestFactoryDefaultStoreFilename;
 /*
  Default Factory Names
  */
-extern NSString * const RKTestFactoryDefaultNamesClient;
-extern NSString * const RKTestFactoryDefaultNamesObjectManager;
+extern NSString * const RKTestFactoryDefaultNamesSessionManager;
+extern NSString * const RKTestFactoryDefaultNamesObjectSessionManager;
 extern NSString * const RKTestFactoryDefaultNamesManagedObjectStore;
 
 @class RKManagedObjectStore;
@@ -172,20 +172,6 @@ extern NSString * const RKTestFactoryDefaultNamesManagedObjectStore;
 ///--------------------------------
 /// @name Retrieving Shared Objects
 ///--------------------------------
-
-/**
- Fetches the shared `AFHTTPClient` object using the factory defined for the name `RKTestFactoryDefaultNamesClient`.
-
- @return The shared client instance.
- */
-+ (id)client;
-
-/**
- Fetches the shared `RKObjectManager` object using the factory defined for the name `RKTestFactoryDefaultNamesObjectManager`.
-
- @return The shared object manager instance.
- */
-+ (id)objectManager;
 
 #ifdef RKCoreDataIncluded
 /**

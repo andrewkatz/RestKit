@@ -17,18 +17,3 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
-
-#import "RKRoute.h"
-#import "RKRouteSet.h"
-#import "RKRouter.h"
-#import "RKRequestDescriptor.h"
-#import "RKResponseDescriptor.h"
-#import "RKObjectManager.h"
-#import "RKHTTPUtilities.h"
-#import "RKObjectRequestOperation.h"
-#import "RKObjectParameterization.h"
-#import "RKPathMatcher.h"
-
-#ifdef _COREDATADEFINES_H
-#import "RKManagedObjectRequestOperation.h"
-#endif

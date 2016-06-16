@@ -24,7 +24,5 @@
  RKTestFactory.m, they would resolve on the Simulator but produce linker when building
  for Device. [sbw - 05/04/2012]
  */
-NSString * const RKTestFactoryDefaultNamesClient = @"client";
-NSString * const RKTestFactoryDefaultNamesObjectManager = @"objectManager";
 NSString * const RKTestFactoryDefaultNamesManagedObjectStore = @"managedObjectStore";
 NSString * const RKTestFactoryDefaultStoreFilename = @"RKTests.sqlite";

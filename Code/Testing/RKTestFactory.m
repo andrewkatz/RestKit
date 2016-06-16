@@ -18,13 +18,10 @@
 //  limitations under the License.
 //
 
-#import "AFHTTPClient.h"
 #import "RKTestFactory.h"
 #import "RKLog.h"
-#import "RKObjectManager.h"
 #import "RKPathUtilities.h"
 #import "RKMIMETypeSerialization.h"
-#import "RKObjectRequestOperation.h"
 
 #ifdef _COREDATADEFINES_H
 #if __has_include("RKCoreData.h")
@@ -112,24 +109,6 @@
 
 - (void)defineDefaultFactories
 {
-    [self defineFactory:RKTestFactoryDefaultNamesClient withBlock:^id {
-        __block AFHTTPClient *client;
-        RKLogSilenceComponentWhileExecutingBlock(RKlcl_cRestKitSupport, ^{
-            client = [AFHTTPClient clientWithBaseURL:self.baseURL];
-        });
-
-        return client;
-    }];
-
-    [self defineFactory:RKTestFactoryDefaultNamesObjectManager withBlock:^id {
-        __block RKObjectManager *objectManager;
-        RKLogSilenceComponentWhileExecutingBlock(RKlcl_cRestKitSupport, ^{
-            objectManager = [RKObjectManager managerWithBaseURL:self.baseURL];
-        });
-
-        return objectManager;
-    }];
-
 #ifdef RKCoreDataIncluded
     [self defineFactory:RKTestFactoryDefaultNamesManagedObjectStore withBlock:^id {
         NSString *storePath = [RKApplicationDataDirectory() stringByAppendingPathComponent:RKTestFactoryDefaultStoreFilename];
@@ -207,16 +186,6 @@
     return [NSSet setWithArray:[[RKTestFactory sharedFactory].factoryBlocks allKeys]];
 }
 
-+ (id)client
-{
-    return [self sharedObjectFromFactory:RKTestFactoryDefaultNamesClient];
-}
-
-+ (id)objectManager
-{
-    return [self sharedObjectFromFactory:RKTestFactoryDefaultNamesObjectManager];
-}
-
 #ifdef RKCoreDataIncluded
 + (id)managedObjectStore
 {
@@ -243,7 +212,7 @@
     });
 
     [[RKTestFactory sharedFactory].sharedObjectsByFactoryName removeAllObjects];
-    [RKObjectManager setSharedManager:nil];
+
 #ifdef RKCoreDataIncluded
     [RKManagedObjectStore setDefaultStore:nil];
 #endif
@@ -263,12 +232,6 @@
 + (void)tearDown
 {
     if ([RKTestFactory sharedFactory].tearDownBlock) [RKTestFactory sharedFactory].tearDownBlock();
-
-    // Cancel any network operations and clear the cache
-    [[RKObjectManager sharedManager].operationQueue cancelAllOperations];
-
-    // Cancel any object mapping in the response mapping queue
-    [[RKObjectRequestOperation responseMappingQueue] cancelAllOperations];
 
 #ifdef RKCoreDataIncluded
     // Ensure the existing defaultStore is shut down
@@ -290,7 +253,7 @@
 #endif
 
     [[RKTestFactory sharedFactory].sharedObjectsByFactoryName removeAllObjects];
-    [RKObjectManager setSharedManager:nil];
+
 #ifdef RKCoreDataIncluded
     [RKManagedObjectStore setDefaultStore:nil];
 #endif
